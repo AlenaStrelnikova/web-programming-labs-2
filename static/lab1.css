@@ -1,9 +1,56 @@
 body {
     background-color: rgb(171, 212, 236);
     color: rgb(64, 87, 214);
+    overflow-x: hidden;
+    margin-top: 50px;
 }
 
-img {
+header {
+    background:rgb(206, 221, 230);
+    color: rgb(7, 5, 110);
+    padding: 10px;
+    font-size: 16pt;
+    width: 100%;
+    position: fixed;
+    right: -20px;
+    top: 0;
+}
+
+footer {
+    background:rgb(206, 221, 230);
+    color: rgb(7, 5, 110);
+    padding: 10px;
+    font-size: 16pt;
+    text-align: right;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: -20px;
+}
+
+.dub {
     height: 800px;
     width: 1000px;
+}
+
+.text {
+    color:blue;
+    font-size: 20px;
+}
+
+.logo_nstu {
+    height: 150px;
+    width: 150px;
+}
+
+.python_pic {
+    height: 600px;
+    width: 800px;
+    padding-bottom: 50px;
+}
+
+.sea {
+    height: 450px;
+    width: 550px;
+    padding-bottom: 50px;
 }
