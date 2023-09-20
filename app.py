@@ -189,5 +189,8 @@ def sea():
 
 @app.route('/lab2/example')
 def example():
-    name = 'Алёна Стрельникова'
-    return render_template('example.html', name=name)
+    name = 'Алёна Стрельникова' 
+    labnumber = 'Лабораторная работа 2'
+    group_kurs = 'ФБИ-14, 3 курс'
+    return render_template('example.html', name=name, labnumber=labnumber, group_kurs=group_kurs)
+
