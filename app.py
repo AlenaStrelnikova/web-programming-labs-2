@@ -191,6 +191,7 @@ def sea():
 def example():
     name = 'Алёна Стрельникова' 
     labnumber = 'Лабораторная работа 2'
-    group_kurs = 'ФБИ-14, 3 курс'
-    return render_template('example.html', name=name, labnumber=labnumber, group_kurs=group_kurs)
+    group = 'ФБИ-14'
+    kurs = '3 курс'
+    return render_template('example.html', name=name, labnumber=labnumber, group=group, kurs=kurs)
 
