@@ -23,3 +23,14 @@ footer {
     left: 0;
     right: 0;
 }
+
+.dogs_descrip {
+    font-size: 20px;
+    padding-right: 400px;
+    margin: 20px;
+    text-align: justify;
+}
+
+.dogs_pic {
+    width: 500px;
+}

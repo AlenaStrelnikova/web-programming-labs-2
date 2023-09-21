@@ -198,7 +198,7 @@ def example():
         {'name': 'груши', 'price': 120}, 
         {'name': 'апельсины', 'price': 80}, 
         {'name': 'мандарины', 'price': 95}, 
-        {'name': 'манго', 'price': 321}],
+        {'name': 'манго', 'price': 321}]
     books = [
         {'title': 'Улисс', 'author': 'Джеймс Дж.', 'genre': 'роман', 'pages': 1056 },
         {'title': 'Трилогия желания', 'author': 'Драйзер Т.', 'genre': 'роман', 'pages': 1152},
@@ -216,3 +216,7 @@ def example():
 @app.route('/lab2/')
 def lab2():
     return render_template('lab2.html')
+
+@app.route('/lab2/dogs')
+def show_dogs():
+    return render_template('dogs.html')
