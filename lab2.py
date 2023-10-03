@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, app
+from flask import Blueprint, render_template
 lab2 = Blueprint('lab2', __name__)
 
 
-@app.route('/lab2/example')
+@lab2.route('/lab2/example')
 def example():
     name = 'Алёна Стрельникова' 
     labnumber = 'Лабораторная работа 2'
@@ -28,11 +28,11 @@ def example():
     return render_template('example.html', name=name, labnumber=labnumber, group=group, kurs=kurs, fruits=fruits, books=books)
     
 
-@app.route('/lab2/')
+@lab2.route('/lab2/')
 def lab_2():
     return render_template('lab2.html')
 
 
-@app.route('/lab2/dogs')
+@lab2.route('/lab2/dogs')
 def show_dogs():
     return render_template('dogs.html')
