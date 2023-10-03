@@ -34,3 +34,9 @@ footer {
 .dogs_pic {
     width: 500px;
 }
+
+.error {
+    color: rgb(199, 21, 21);
+    padding: 10px;
+    font-weight: 800;
+}
