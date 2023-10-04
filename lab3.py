@@ -24,22 +24,6 @@ def form1():
 
 @lab3.route('/lab3/order')
 def order():
-    # order = ''
-    # drink = request.args.get('drink')
-
-    # if drink == 'coffee':
-    #     order = 'Кофе'
-    # elif drink == 'black-tea':
-    #     order = 'Черный чай'
-    # else:
-    #     order = 'Зеленый чай'
-
-    # if request.args.get('milk') == 'on':
-    #     order = 'с молоком'
-    # if request.args.get('sugar') == 'on':
-    #     order = 'с сахаром'
-
-    
     return render_template('order.html', order=order)
 
 
@@ -65,3 +49,18 @@ def pay():
 @lab3.route('/lab3/success')
 def success():
     return render_template('success.html')
+
+
+@lab3.route('/lab3/buy_ticket')
+def buy():
+    errors = {}
+    user = request.args.get('user')
+    age = request.args.get('age')
+    if user == '':
+        errors['user'] = 'Заполните поле!'
+
+    if age == '':
+        errors['age'] = 'Заполните поле!'
+
+    sex = request.args.get('sex')
+    return render_template('form1.html', user=user, age=age, sex=sex, errors=errors)

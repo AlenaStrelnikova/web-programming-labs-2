@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block lab %} Лабораторная работа 3 {% endblock %}
+
+{% block main %}
+
+    {% if user and age %}
+
+    <div>Ваш возраст: {{ age }}</div>
+    <div>Ваш пол: {{ 'мужской' if sex == 'male' else 'женский'}}</div>
+
+    {% else %}
+
+    <h1>Здравствуйте, {{ user }}!</h1>
+    <h2>Заполните данные для покупки железнодорожного билета!</h2>
+
+    <form>
+            <label>ФИО пассажира:</label>
+            <div>
+                <input type="text" placeholder="Ваше полное имя..." name="user" value="{{ user or '' }}">
+                <span class="error">{{ errors.name }}</span>
+            </div>
+
+            <label>Ваш возраст:</label>
+            <div>
+                <input type="number" name="age" value="{{ age or '' }}">
+                <span class="error">{{ errors.age }}</span>
+            </div>
+
+            <label>Ваш пол:</label>
+            <div>
+                <select name="sex">
+                    <option value="male" {{ sex == 'male' and 'selected' }}>Мужчина</option>
+                    <option value="female" {{ sex =='female' and 'selected' }}>Женщина</option>
+                </select>
+            </div>
+
+            <div>
+                <button type="submit">Отправить</button>
+            </div>
+    </form>
+    {% endif %}
+{% endblock %}
