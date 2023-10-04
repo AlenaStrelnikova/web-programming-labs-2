@@ -46,3 +46,9 @@ footer {
     font-weight: 700;
     color:rgb(136, 68, 4)
 }
+
+.ticket {
+    font-size: 20px;
+    color: rgb(59, 14, 14);
+    padding-left: 10px;
+}
