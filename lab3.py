@@ -92,7 +92,7 @@ def buy():
     if request.args.get('type_ticket') == 'kid':
         type_ticket = 'детский'
     else:
-        baggage = 'взрослый'
+        type_ticket = 'взрослый'
 
     if request.args.get('shelf') == 'lower':
         shelf = 'нижняя'
