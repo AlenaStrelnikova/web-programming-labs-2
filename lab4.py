@@ -88,3 +88,33 @@ def grain_order():
 
     return render_template('grain_order.html', error=error, grain=grain, weight=weight, price=price, skidka=skidka)
 
+
+@lab4.route('/lab4/cookies', methods = ['GET', 'POST'])
+def cookies():
+    errors = []
+    if request.method == 'GET':
+        return render_template('cookies.html')
+
+    color = request.form.get('color')
+    backgroundcolor = request.form.get('backgroundcolor')
+
+    if color == backgroundcolor:
+        errors.append('Цвет текста не должен совпадать с цветом фона')
+
+    fontsize = request.form.get('fontsize')
+
+    if fontsize is None or fontsize == '':
+        errors.append('Введите значение шрифта')
+    else:
+        fontsize = int(fontsize)
+
+        if fontsize < 5 or fontsize > 30:
+            errors.append('Размер шрифта должен быть от 5 до 30 px')
+
+    if errors:
+         return render_template('cookies.html', errors=errors)
+    headers = {
+        'Set-Cookie': ['color=' + color + '; path=/', 'backgroundcolor=' + backgroundcolor + '; path=/', 'fontsize=' + str(fontsize) + '; path=/'],
+    }
+    return '', 303, headers
+    return render_template('cookies.html', errors=errors)

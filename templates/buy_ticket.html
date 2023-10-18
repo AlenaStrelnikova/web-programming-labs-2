@@ -80,7 +80,7 @@
             <label>Ваш возраст:</label>
             <div>
                 <input type="number" name="age" value="{{ age or '' }}">
-                {% if error %}
+                {% if errors %}
                 <span class="error">{{ errors.age }}</span>
                 {% endif %}
             </div><br>
