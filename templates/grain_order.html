@@ -9,8 +9,10 @@
     <h1>Заказ успешно сформирован</h1>
 
     <div style="font-size: 25px;">
-        Вы заказали {{ grain }}. Вес: {{ weight }} т. <br>
-        Сумма к оплате: {{ price }} &#8381;»
+        Вы заказали: {{ grain }}. Вес: {{ weight }} т. <br>
+        Сумма к оплате: {{ price }} &#8381;
+        <p>{{ skidka }}</p>
+        
     </div><br>
     <div>
         <a href="/lab4/grain_order">Заказать еще</a>
@@ -27,10 +29,10 @@
         <label>Зерно:</label>
             <div>
                 <select name="grain">
-                    <option value="yachmen" {{ grain == 'yachmen' and 'selected' }}>Ячмень</option>
-                    <option value="oves" {{ grain =='oves' and 'selected' }}>Овёс</option>
-                    <option value="pshenitsa" {{ grain == 'pshenitsa' and 'selected' }}>Пшеница</option>
-                    <option value="rozh" {{ grain == 'rozh' and 'selected' }}>Рожь</option>
+                    <option value="ячмень" {{ grain == 'yachmen' and 'selected' }}>Ячмень</option>
+                    <option value="овёс" {{ grain =='oves' and 'selected' }}>Овёс</option>
+                    <option value="пшеница" {{ grain == 'pshenitsa' and 'selected' }}>Пшеница</option>
+                    <option value="рожь" {{ grain == 'rozh' and 'selected' }}>Рожь</option>
                 </select><br>
             </div>
 

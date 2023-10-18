@@ -56,6 +56,7 @@ def grain_order():
     error = None
     grain = None
     weight = None
+    skidka = ''
     price = 0
     if request.method == 'POST':
         grain = request.form.get('grain')
@@ -64,7 +65,7 @@ def grain_order():
         if weight is None or weight == '':
             error = 'Не введен вес'
         else:
-            weight = int(weight)
+            weight = float(weight)
 
             if weight <= 0:
                 error = 'Неверное значение веса'
@@ -82,7 +83,8 @@ def grain_order():
                 
                 if weight > 50 and weight <= 500:
                         price = price*0.9
+                        skidka  = 'Применена скидка за большой объём'
 
 
-    return render_template('grain_order.html', error=error, grain=grain, weight=weight, price=price)
+    return render_template('grain_order.html', error=error, grain=grain, weight=weight, price=price, skidka=skidka)
 
