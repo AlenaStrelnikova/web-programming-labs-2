@@ -111,10 +111,11 @@ def cookies():
         if fontsize < 5 or fontsize > 30:
             errors.append('Размер шрифта должен быть от 5 до 30 px')
 
-    if errors:
-         return render_template('cookies.html', errors=errors)
     headers = {
         'Set-Cookie': ['color=' + color + '; path=/', 'backgroundcolor=' + backgroundcolor + '; path=/', 'fontsize=' + str(fontsize) + '; path=/'],
     }
     return '', 303, headers
-    return render_template('cookies.html', errors=errors)
+
+    if errors:
+         return render_template('cookies.html', errors=errors)
+    

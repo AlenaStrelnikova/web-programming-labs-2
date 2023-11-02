@@ -21,6 +21,8 @@ def dbClose(cursor, connection):
 @lab5.route('/lab5/')
 def main():
     visibleUser = "Anon"
+    if 'visibleUser' in session:
+        visibleUser = session['visibleUser']
     return render_template("lab5.html", username=visibleUser)
 
     conn = dbConnect()
@@ -45,6 +47,7 @@ def users():
     cur.execute("SELECT username FROM users;")
 
     users = cur.fetchall()
+    users = [user[0] for user in users]
 
     dbClose(cur, conn)
 
@@ -62,7 +65,7 @@ def registerPage():
     username = request.form.get("username")
     password = request.form.get("password")
 
-    if not (username or password):
+    if not (username and password):
         errors.append("Пожалуйста, заполните все поля")
         print(errors)
         return render_template("register.html", errors=errors)
@@ -73,7 +76,7 @@ def registerPage():
     conn = dbConnect()
     cur = conn.cursor()
 
-    cur.execute(f"SELECT username FROM users WHERE username = '{username}';")
+    cur.execute(f"SELECT username FROM users WHERE username = %s", (username,))
 
     if cur.fetchone() is not None:
         errors.append("Пользователь с данным именем уже существует")
@@ -82,7 +85,7 @@ def registerPage():
 
         return render_template("register.html", errors=errors)
 
-    cur.execute(f"INSERT INTO users (username, password) VALUES ('{username}', '{password}');")
+    cur.execute(f"INSERT INTO users (username, password) VALUES ('{username}', '{hashPassword}');")
 
     conn.commit()
     dbClose(cur, conn)
@@ -110,7 +113,7 @@ def loginPage():
     conn = dbConnect()
     cur = conn.cursor()
 
-    cur.execute(f"SELECT id, password FROM users WHERE username = '{username}'")
+    cur.execute(f"SELECT id, password FROM users WHERE username = %s", (username,))
 
     result = cur.fetchone()
 
@@ -124,8 +127,10 @@ def loginPage():
     if check_password_hash(hashPassword, password):
         session['id'] = userID
         session['username'] = username
+        session['visibleUser'] = username
         dbClose(cur, conn)
         return redirect("/lab5/")
+
 
     else:
         errors.append("Неправильный логин или пароль!")
@@ -146,12 +151,12 @@ def createArticle():
 
         if request.method == "POST":
             text_article = request.form.get("text_article")
-            title = requesst.form.get("title_article")
+            title = request.form.get("title_article")
 
             if len(text_article) == 0:
                 errors.append("Заполните текст")
                 return render_template("new_article.html", errors=errors)
-
+            
             if len(title) == 0:
                 errors.append("Введите название")
                 return render_template("new_article.html", errors=errors)
@@ -168,7 +173,7 @@ def createArticle():
 
             return redirect(f"/lab5/articles/{new_article_id}")
 
-    return redirect("/lab5/login")
+    return redirect("/lab5/login_lab5")
 
 
 @lab5.route('/lab5/articles/<int:article_id>')
@@ -193,3 +198,26 @@ def getArticle(article_id):
         return render_template("article.html", article_text=text, article_title=articleBody[0], username=session.get('username'))
 
 
+
+@lab5.route('/lab5/see_articles/<int:user_id>')
+def get_user_articles(user_id):
+    userID = session.get('id')
+    if userID is not None and user_id == int(userID):
+        conn = dbConnect()
+        cur = conn.cursor()
+
+        cur.execute("SELECT title FROM articles WHERE user_id = %s", (user_id,))
+
+        articles = cur.fetchall()
+
+        dbClose(cur, conn)
+        return render_template("user_articles.html", articles=articles, user_id=user_id)
+
+    return redirect("/lab5/login_lab5")
+
+
+
+@lab5.route('/lab5/logout')
+def logout():
+    session.clear()
+    return redirect("/lab5/")
