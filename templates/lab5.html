@@ -31,7 +31,7 @@
         {% if 'id' in session %}
         <li style="margin-right: 180px; font-size: 20px;"><a href="{{ url_for('lab5.get_user_articles', user_id=session['id']) }}">Посмотреть заметки</a></li>
         {% else %}
-        <li style="margin-right: 180px; font-size: 20px;"><a href="/lab5/see_articles">Посмотреть заметки</a></li>
+        <li style="margin-right: 180px; font-size: 20px;"><a href="/lab5/login_lab5">Посмотреть заметки</a></li>
         {% endif %}
         <li style="margin-right: 380px; font-size: 20px;"><a href="/lab5/new_article">Создать заметку</a></li>
         <li style="margin-right: 40px; font-size: 20px;"><a href="/lab5/login_lab5">Логин</a></li>
@@ -40,3 +40,4 @@
     </ul>
 </nav>
 {% endblock %}
+

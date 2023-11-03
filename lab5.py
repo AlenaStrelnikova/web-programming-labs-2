@@ -85,7 +85,8 @@ def registerPage():
 
         return render_template("register.html", errors=errors)
 
-    cur.execute(f"INSERT INTO users (username, password) VALUES ('{username}', '{hashPassword}');")
+    cur.execute(f"INSERT INTO users (username, password) VALUES (%s, %s) RETURNING id", (username, hashPassword))
+    
 
     conn.commit()
     dbClose(cur, conn)
@@ -152,6 +153,7 @@ def createArticle():
         if request.method == "POST":
             text_article = request.form.get("text_article")
             title = request.form.get("title_article")
+            is_public = request.form.get("is_public") == "on"
 
             if len(text_article) == 0:
                 errors.append("Заполните текст")
@@ -164,7 +166,8 @@ def createArticle():
             conn = dbConnect()
             cur = conn.cursor()
 
-            cur.execute(f"INSERT INTO articles(user_id, title, article_text) VALUES ({userID}, '{title}', '{text_article}') RETURNING id")
+            cur.execute(f"INSERT INTO articles(user_id, title, article_text, is_public) VALUES (%s, %s, %s, %s) RETURNING id",
+                        (userID, title, text_article, is_public))
 
             new_article_id = cur.fetchone()[0]
             conn.commit()
@@ -184,7 +187,7 @@ def getArticle(article_id):
         conn = dbConnect()
         cur = conn.cursor()
 
-        cur.execute(f"SELECT title, article_text FROM articles WHERE id = %s and user_id = %s", (article_id, userID))
+        cur.execute(f"SELECT title, article_text, is_public, user_id FROM articles WHERE id = %s", (article_id,))
 
         articleBody = cur.fetchone()
 
@@ -193,16 +196,21 @@ def getArticle(article_id):
         if articleBody is None:
             return "Not found!"
 
+        if not articleBody[2] and articleBody[3] != userID:
+            return "Доступ запрещен!"
+
         text = articleBody[1].splitlines()
 
-        return render_template("article.html", article_text=text, article_title=articleBody[0], username=session.get('username'))
-
+        return render_template("article.html", article_text=text, article_title=articleBody[0])
 
 
 @lab5.route('/lab5/see_articles/<int:user_id>')
 def get_user_articles(user_id):
     userID = session.get('id')
-    if userID is not None and user_id == int(userID):
+    if userID is not None:
+        if userID != user_id:  
+            return redirect("/lab5/login_lab5")
+
         conn = dbConnect()
         cur = conn.cursor()
 
@@ -211,9 +219,7 @@ def get_user_articles(user_id):
         articles = cur.fetchall()
 
         dbClose(cur, conn)
-        return render_template("user_articles.html", articles=articles, user_id=user_id)
-
-    return redirect("/lab5/login_lab5")
+        return render_template("user_articles.html", articles=articles, user_id=user_id, username=session.get("username"))
 
 
 
@@ -221,3 +227,4 @@ def get_user_articles(user_id):
 def logout():
     session.clear()
     return redirect("/lab5/")
+

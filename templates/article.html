@@ -4,12 +4,10 @@
 
 {% block main %}
 
-<form method="POST">
     <div>
         <h1>{{ article_title }}</h1>
         {% for paragraph in article_text %}
         <p>{{ paragraph }}</p>
         {% endfor %}
     </div>
-    </form>
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block lab %} Лабораторная работа 5 {% endblock %}
 
 {% block main %}
+
 <style>
     table {
         margin-top: 35px;
@@ -18,7 +19,7 @@
         border: 1px solid rgb(15, 114, 15);
     }
 </style>
-    <h1>Мои заметки</h1>
+    <h1>Заметки {{ username }}:</h1>
     <table>
         {% for article in articles %}
             <tr>
