@@ -81,7 +81,7 @@ function addCourse(){
 }
 
 function sendCourse() {
-
+    const num = document.getElementById('num').value;
     const course = {
         name: document.getElementById('name').value,
         videos: document.getElementById('videos').value,
@@ -89,7 +89,7 @@ function sendCourse() {
     }
 
     const url = `/lab8/api/courses/${num}`;
-    const method = 'POST';
+    const method = num ? 'PUT' : 'POST';
     fetch(url, {
         method: method,
         headers: {"Content-Type": "application/json"},
