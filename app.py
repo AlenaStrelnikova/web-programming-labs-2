@@ -8,6 +8,7 @@ from lab6 import lab6
 from lab7 import lab7
 from lab8 import lab8
 from lab9 import lab9
+from exam import exam
 
 from flask_sqlalchemy import SQLAlchemy
 from Db import db
@@ -24,6 +25,7 @@ app.register_blueprint(lab6)
 app.register_blueprint(lab7)
 app.register_blueprint(lab8)
 app.register_blueprint(lab9)
+app.register_blueprint(exam)
 
 app.secret_key = '123'
 user_db = 'alena_knowledge_base_orm'

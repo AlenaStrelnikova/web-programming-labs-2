@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block lab %} Задание 12. Экзамен {% endblock %}
+
+{% block main %}
+
+
+{% if result %}
+
+<h1>Результат</h1>
+
+<div>
+    Ваш результат: {{ result }}
+</div><br>
+
+{% else %}
+
+<h2>Заполните, пожалуйста, данные</h2>
+
+
+    <form method="POST">
+       <label>Число 1</label>
+        <div>
+            <input type="text" name="n1" value="{{ request.form.n1 or '' }}">
+            <span class="error">{{ errors.n1 }}</span>
+        </div><br>
+
+        <label>Число 2</label>
+        <div>
+            <input type="text" name="n2" value="{{ request.form.n2 or '' }}">
+            <span class="error">{{ errors.n2 }}</span>
+        </div><br>
+
+        <label>Число 3</label>
+        <div>
+            <input type="text" name="n3" value="{{ request.form.n3 or '' }}">
+            <span class="error">{{ errors.n3 }}</span>
+        </div><br>
+
+        <label>Число 4</label>
+        <div>
+            <input type="text" name="n4" value="{{ request.form.n4 or '' }}">
+            <span class="error">{{ errors.n4 }}</span>
+        </div><br>
+
+        <label>Число 5</label>
+        <div>
+            <input type="text" name="n5" value="{{ request.form.n5 or '' }}">
+            <span class="error">{{ errors.n5 }}</span>
+        </div><br>
+
+        <div>
+            <button type="submit">Послать</button>
+        </div>
+    </form>
+{% endif %}
+{% endblock %}
