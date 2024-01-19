@@ -15,7 +15,7 @@
 
 {% else %}
 
-<h2>Заполните, пожалуйста, данные</h2>
+<h2>Пожалуйста, введите числа</h2>
 
 
     <form method="POST">
@@ -41,12 +41,6 @@
         <div>
             <input type="text" name="n4" value="{{ request.form.n4 or '' }}">
             <span class="error">{{ errors.n4 }}</span>
-        </div><br>
-
-        <label>Число 5</label>
-        <div>
-            <input type="text" name="n5" value="{{ request.form.n5 or '' }}">
-            <span class="error">{{ errors.n5 }}</span>
         </div><br>
 
         <div>

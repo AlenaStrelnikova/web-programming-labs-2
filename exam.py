@@ -11,8 +11,6 @@ def main ():
         n2 = request.form.get('n2')
         n3 = request.form.get('n3')
         n4 = request.form.get('n4')
-        n5 = request.form.get('n5')
-
 
         if not n1 or not n1.isdigit():
             errors['n1'] = 'Пожалуйста, введите корректное число в поле Число 1.'
@@ -26,13 +24,10 @@ def main ():
         if not n4 or not n4.isdigit():
             errors['n4'] = 'Пожалуйста, введите корректное число в поле Число 4.'
 
-        if not n5 or not n5.isdigit():
-            errors['n5'] = 'Пожалуйста, введите корректное число в поле Число 5.'
-
         if not errors:
-            numbers = [int(n1), int(n2), int(n3), int(n4), int(n5)]
-            numbers.sort(reverse=True)
-            result = numbers[:2]
+            numbers = [int(n1), int(n2), int(n3), int(n4)]
+            numbers.sort(reverse=False)
+            result = numbers
         else:
             result = None
     else:
